@@ -15,9 +15,7 @@ frappe.ui.form.on("Budget", {
 
 		frm.set_query("monthly_distribution", function () {
 			return {
-				filters: {
-					fiscal_year: frm.doc.fiscal_year,
-				},
+				filters: {},
 			};
 		});
 
