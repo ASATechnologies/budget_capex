@@ -43,6 +43,9 @@ app_license = "mit"
 # page_js = {"page" : "public/js/file.js"}
 
 # include js in doctype views
+doctype_js = {
+	"Budget": "public/js/budget.js",
+}
 # doctype_js = {"doctype" : "public/js/doctype.js"}
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
@@ -86,10 +89,13 @@ app_license = "mit"
 # ------------
 
 # before_install = "budget_capex.install.before_install"
-# after_install = "budget_capex.install.after_install"
+after_install = "budget_capex.budget_capex.setup_accounting_dimension.after_install"
+
 
 # Uninstallation
 # ------------
+before_uninstall = "budget_capex.budget_capex.setup_accounting_dimension.before_uninstall"
+
 
 # before_uninstall = "budget_capex.uninstall.before_uninstall"
 # after_uninstall = "budget_capex.uninstall.after_uninstall"
@@ -168,7 +174,10 @@ app_license = "mit"
 
 # Overriding Methods
 # ------------------------------
-#
+override_doctype_class = {"Budget": "budget_capex.budget_capex.custom.budget.CapexBudget"}
+
+
+fixtures = ["Monthly Distribution"]
 # override_whitelisted_methods = {
 # 	"frappe.desk.doctype.event.event.get_events": "budget_capex.event.get_events"
 # }

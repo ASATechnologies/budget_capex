@@ -1,6 +1,10 @@
 ### Budget Capex
 
-Budget Capital expenditures
+Budget Capex introduces the `Capital Expenditure` doctype and a `Capital Expenditure` accounting dimension. 
+
+It also allows you to create budgets and select accounts that are of type `Fixed Asset` or accounts with report type of `Profit And Loss`. 
+
+It also comes with typical `Monthly Distribution` examples like `1st Quarter`, `January` etc to help you quickly plan your budget.
 
 ### Installation
 
@@ -8,9 +12,12 @@ You can install this app using the [bench](https://github.com/frappe/bench) CLI:
 
 ```bash
 cd $PATH_TO_YOUR_BENCH
-bench get-app $URL_OF_THIS_REPO --branch develop
+
+bench get-app https://github.com/ASATechnologies/budget_capex --branch develop
+
 bench install-app budget_capex
 ```
+
 
 ### Contributing
 
