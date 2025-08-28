@@ -9,14 +9,18 @@ def apply_patches():
     """
     try:
         # Import and apply your patches
-        from budget_capex.budget_capex.custom.patch import patch_validate_expense_function
+        from budget_capex.budget_capex.custom.patch import (
+            patch_validate_expense_function,
+        )
+
         patch_validate_expense_function()
-        
+
         frappe.logger().info("CapEx patches applied successfully")
-        
+
     except ImportError:
         frappe.logger().warning("Patch modules not found")
     except Exception as e:
         frappe.logger().error(f"Patching failed: {str(e)}")
+
 
 apply_patches()
