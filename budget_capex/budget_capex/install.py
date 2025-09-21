@@ -1,5 +1,8 @@
 import frappe
+import json
 from frappe import _
+from frappe.utils import nowdate, getdate
+
 
 def setup_capex_accounting_dimension():
     """
@@ -60,7 +63,47 @@ def remove_capex_accounting_dimension():
     except Exception as e:
         frappe.logger().error(f"Failed to remove Capital Expenditure Accounting Dimension: {str(e)}")
 
+def after_insert_fiscal_year(doc, method):
+    """Runs after a Fiscal Year is created"""
+    fiscal_year = doc.name  # usually same as doc.fiscal_year
+    start_year = getdate(doc.year_start_date).year
 
+    # Example: check if fiscal year == current calendar year
+    current_year = getdate().year
+    if start_year == current_year:
+        frappe.logger().info(f"Fiscal Year {fiscal_year} is current year. Running fixture logic...")
+
+        # Call your fixture loader here
+        create_monthly_distributions_with_fiscal_year(fiscal_year)
+
+def create_distribution_fixtures():
+    today = nowdate()
+    today_date_object = frappe.utils.getdate(today)
+    current_year = today_date_object.year
+    
+    if frappe.db.exists("Fiscal Year", current_year):
+        create_monthly_distributions_with_fiscal_year(current_year)
+
+def create_monthly_distributions_with_fiscal_year(fiscal_year):
+
+    # Path to your fixture file
+    fixture_path = frappe.get_app_path("budget_capex", "budget_capex", "custom", "data", "monthly_distribution.json")
+
+    with open(fixture_path, "r") as f:
+        data = json.load(f)
+
+    for record in data:
+        doctype = record.get("doctype")
+        name = record.get("name")
+        new_name = f"{record['name']} - {fiscal_year}"
+        record["name"] = new_name
+        record["distribution_id"] = new_name
+        record["fiscal_year"] = fiscal_year
+        if not frappe.db.exists(doctype, new_name):
+            doc = frappe.get_doc(record)
+            doc.insert()
+
+    frappe.db.commit()
 
 # Hook functions for installation
 def after_install():

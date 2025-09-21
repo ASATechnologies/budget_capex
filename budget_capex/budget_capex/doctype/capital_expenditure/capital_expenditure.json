@@ -1,13 +1,11 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "naming_series:",
  "creation": "2025-08-27 17:09:14.828672",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "naming_series",
-  "title",
+  "capex_name",
   "company",
   "column_break_5",
   "priority",
@@ -16,20 +14,6 @@
   "description"
  ],
  "fields": [
-  {
-   "fieldname": "naming_series",
-   "fieldtype": "Select",
-   "label": "Series",
-   "options": "CAP-EXP-.YYYY.-\nCAPEX-.####.-",
-   "reqd": 1
-  },
-  {
-   "fieldname": "title",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "label": "Title",
-   "reqd": 1
-  },
   {
    "fieldname": "company",
    "fieldtype": "Link",
@@ -63,6 +47,13 @@
    "fieldtype": "Long Text",
    "label": "Description",
    "reqd": 1
+  },
+  {
+   "fieldname": "capex_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "CapEx Name",
+   "reqd": 1
   }
  ],
  "grid_page_length": 50,
@@ -73,11 +64,10 @@
    "link_fieldname": "capital_expenditure"
   }
  ],
- "modified": "2025-08-27 18:24:07.194584",
+ "modified": "2025-09-21 19:29:49.318942",
  "modified_by": "Administrator",
  "module": "Budget Capex",
  "name": "Capital Expenditure",
- "naming_rule": "By \"Naming Series\" field",
  "owner": "Administrator",
  "permissions": [
   {

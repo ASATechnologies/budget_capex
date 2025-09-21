@@ -89,12 +89,12 @@ doctype_js = {
 # ------------
 
 # before_install = "budget_capex.install.before_install"
-after_install = "budget_capex.budget_capex.setup_accounting_dimension.after_install"
+after_install = "budget_capex.budget_capex.install.after_install"
 
 
 # Uninstallation
 # ------------
-before_uninstall = "budget_capex.budget_capex.setup_accounting_dimension.before_uninstall"
+before_uninstall = "budget_capex.budget_capex.install.before_uninstall"
 
 
 # before_uninstall = "budget_capex.uninstall.before_uninstall"
@@ -145,6 +145,12 @@ before_uninstall = "budget_capex.budget_capex.setup_accounting_dimension.before_
 # 		"on_trash": "method"
 # 	}
 # }
+
+doc_events = {
+    "Fiscal Year": {
+        "after_insert": "budget_capex.budget_capex.install.after_insert_fiscal_year"
+    }
+}
 
 # Scheduled Tasks
 # ---------------
